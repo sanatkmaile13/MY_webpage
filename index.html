@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Revision Website</title>
+    <style>
+        body {
+            font-family: Arial;
+            background-color: #f4f4f4;
+            text-align: center;
+        }
+        .box {
+            background: white;
+            margin: 20px;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        button {
+            padding: 10px;
+            margin: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>📚 My Revision Website</h1>
+
+    <div class="box">
+        <h2>Subjects</h2>
+        <button onclick="showTopic('math')">Math</button>
+        <button onclick="showTopic('python')">Python</button>
+    </div>
+
+    <div class="box" id="content">
+        <p>Select a subject to start revision</p>
+    </div>
+
+    <script>
+        function showTopic(subject) {
+            let content = document.getElementById("content");
+
+            if (subject === "math") {
+                content.innerHTML = "<h3>Math</h3><p>Important formulas here...</p>";
+            } else if (subject === "python") {
+                content.innerHTML = "<h3>Python</h3><p>Variables, loops, functions...</p>";
+            }
+        }
+    </script>
+
+</body>
+</html>
