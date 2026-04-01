@@ -5,47 +5,123 @@
     <style>
         body {
             font-family: Arial;
-            background-color: #f4f4f4;
+            background: linear-gradient(to right, #74ebd5, #acb6e5);
             text-align: center;
+            margin: 0;
+        }
+        h1 {
+            background: #333;
+            color: white;
+            padding: 15px;
+            margin: 0;
         }
         .box {
             background: white;
-            margin: 20px;
+            margin: 20px auto;
             padding: 20px;
-            border-radius: 10px;
+            border-radius: 15px;
+            width: 80%;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
         }
         button {
-            padding: 10px;
+            padding: 10px 15px;
             margin: 5px;
+            border: none;
+            border-radius: 8px;
             cursor: pointer;
+            background-color: #333;
+            color: white;
+        }
+        button:hover {
+            background-color: #555;
         }
     </style>
 </head>
 <body>
 
-    <h1>📚 My Revision Website</h1>
+<h1>📚 My Revision Website</h1>
 
-    <div class="box">
-        <h2>Subjects</h2>
-        <button onclick="showTopic('math')">Math</button>
-        <button onclick="showTopic('python')">Python</button>
-    </div>
+<div class="box">
+    <h2>Subjects</h2>
+    <button onclick="showTopic('math')">Math</button>
+    <button onclick="showTopic('python')">Python</button>
+    <button onclick="startQuiz()">Start Quiz</button>
+</div>
 
-    <div class="box" id="content">
-        <p>Select a subject to start revision</p>
-    </div>
+<div class="box" id="content">
+    <p>Select a subject or start quiz</p>
+</div>
 
-    <script>
-        function showTopic(subject) {
-            let content = document.getElementById("content");
+<script>
+function showTopic(subject) {
+    let content = document.getElementById("content");
 
-            if (subject === "math") {
-                content.innerHTML = "<h3>Math</h3><p>Important formulas here...</p>";
-            } else if (subject === "python") {
-                content.innerHTML = "<h3>Python</h3><p>Variables, loops, functions...</p>";
-            }
-        }
-    </script>
+    if (subject === "math") {
+        content.innerHTML = `
+        <h3>📐 Math Important Points</h3>
+        <ul>
+            <li>(a+b)^2 = a^2 + b^2 + 2ab</li>
+            <li>Derivative of x^n = n*x^(n-1)</li>
+            <li>log(a*b) = loga + logb</li>
+        </ul>`;
+    } else if (subject === "python") {
+        content.innerHTML = `
+        <h3>🐍 Python Revision</h3>
+        <ul>
+            <li>Variables store data</li>
+            <li>Loops: for, while</li>
+            <li>Functions: def keyword</li>
+            <li>Indentation is important</li>
+        </ul>`;
+    }
+}
+
+let quizIndex = 0;
+let score = 0;
+
+const quiz = [
+    {
+        q: "What is 2 + 2?",
+        options: ["3", "4", "5"],
+        answer: "4"
+    },
+    {
+        q: "Which keyword is used in Python for function?",
+        options: ["func", "def", "function"],
+        answer: "def"
+    }
+];
+
+function startQuiz() {
+    quizIndex = 0;
+    score = 0;
+    showQuestion();
+}
+
+function showQuestion() {
+    let content = document.getElementById("content");
+
+    if (quizIndex < quiz.length) {
+        let q = quiz[quizIndex];
+
+        content.innerHTML = `<h3>${q.q}</h3>` +
+            q.options.map(opt =>
+                `<button onclick="checkAnswer('${opt}')">${opt}</button>`
+            ).join("");
+    } else {
+        content.innerHTML = `<h3>🎉 Quiz Finished!</h3><p>Your Score: ${score}/${quiz.length}</p>`;
+    }
+}
+
+function checkAnswer(selected) {
+    if (selected === quiz[quizIndex].answer) {
+        score++;
+    }
+    quizIndex++;
+    showQuestion();
+}
+</script>
 
 </body>
 </html>
+
